@@ -1,7 +1,7 @@
 '''
 Author: ruofei xu
 Date: 2021-03-01 14:01:04
-LastEditTime: 2021-03-01 17:47:39
+LastEditTime: 2021-03-01 18:42:05
 LastEditors: Please set LastEditors
 Description: mugglepay sdk for payment
 FilePath: /mugglepay-python-sdk/mugglepay.py
@@ -150,17 +150,17 @@ class MugglepayClient:
 
 if __name__ == "__main__":
     # test case
-    API_KEY = ''  # put your api key
+    API_KEY = '6585f7e0-7a6b-11eb-a075-4d53369a311a'  # put your api key
     mgp = MugglepayClient(api_key=API_KEY)
     print('create order test')
     res = mgp.create_order(
         merchat_order_id='your_order_id',
-        price_amount=1,
+        price_amount=0.01,
         price_currency='USD',
         pay_currency='CNY',
         title='Monthly Program x 2',
         description='test python',
-        callback_url='https://mugglepay_callback_api',
+        callback_url='https://{your_host}/mugglepay_callback_api', # replace with your own host where you deployed callback server
         cancel_url='https://mugglepay?status=cancel',
         success_url='https://mugglepay?status=success',
         mobile=False,
