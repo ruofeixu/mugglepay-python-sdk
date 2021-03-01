@@ -1,7 +1,7 @@
 '''
 Author: ruofei xu
 Date: 2021-03-01 14:01:04
-LastEditTime: 2021-03-01 16:58:59
+LastEditTime: 2021-03-01 17:47:39
 LastEditors: Please set LastEditors
 Description: mugglepay sdk for payment
 FilePath: /mugglepay-python-sdk/mugglepay.py
@@ -21,7 +21,7 @@ class MugglepayClient:
             self.api_key = api_key
             self.api_url = api_url
 
-    # 创建mugglepay订单
+    # create mugglepay order
     def create_order(
         self,
         merchat_order_id: str,
@@ -68,7 +68,7 @@ class MugglepayClient:
                 'status': r.status_code
             }
 
-    # 获取mugglepay订单
+    # get mugglepay order
     def get_order(
         self,
         order_id: str
@@ -93,7 +93,7 @@ class MugglepayClient:
                 'status': r.status_code
             }
     
-    # 批量获取mugglepay订单
+    # get mugglepay orders
     def get_orders(
         self,
         status: str = None,
@@ -120,7 +120,7 @@ class MugglepayClient:
                 'status': r.status_code
             }
 
-    # 结账mugglepay订单
+    # checkout mugglepay order
     def checkout_order(
         self,
         order_id: str,
@@ -135,7 +135,7 @@ class MugglepayClient:
             "order_id": order_id,
             "pay_currency": pay_currency
         }
-        r = requests.get(
+        r = requests.post(
             url = url,
             headers = headers,
             json = data
@@ -149,27 +149,28 @@ class MugglepayClient:
             }
 
 if __name__ == "__main__":
-    # 测试样例
-    mgp = MugglepayClient(api_key = '6585f7e0-7a6b-11eb-a075-4d53369a311a')
-    print('创建订单测试')
+    # test case
+    API_KEY = ''  # put your api key
+    mgp = MugglepayClient(api_key=API_KEY)
+    print('create order test')
     res = mgp.create_order(
-        merchat_order_id='6585f7e0-7a6b-11eb-a075-4d53369a311a',
+        merchat_order_id='your_order_id',
         price_amount=1,
         price_currency='USD',
         pay_currency='CNY',
         title='Monthly Program x 2',
         description='test python',
-        callback_url='https://ecards.com/api/success',
-        cancel_url='https://ecards.com/ecardstatus?status=cancel',
-        success_url='https://ecards.com/ecardstatus?status=success',
+        callback_url='https://mugglepay_callback_api',
+        cancel_url='https://mugglepay?status=cancel',
+        success_url='https://mugglepay?status=success',
         mobile=False,
         fast=False,
         token='test12345'
     )
     print(res)
-    print('获取订单测试')
+    print('get order test')
     print(mgp.get_order(res['order']['order_id']))
-    print('批量获取订单接口测试')
+    print('get orders test')
     print(mgp.get_orders('NEW', 2, 0))
-    print('结账接口测试')
-    print(mgp.checkout_order(res['order']['order_id'], 'USD'))
+    print('checkout order test')
+    print(mgp.checkout_order(res['order']['order_id'], 'EOS'))
