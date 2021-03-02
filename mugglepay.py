@@ -1,7 +1,7 @@
 '''
 Author: ruofei xu
 Date: 2021-03-01 14:01:04
-LastEditTime: 2021-03-01 18:42:05
+LastEditTime: 2021-03-02 09:38:15
 LastEditors: Please set LastEditors
 Description: mugglepay sdk for payment
 FilePath: /mugglepay-python-sdk/mugglepay.py
@@ -150,7 +150,7 @@ class MugglepayClient:
 
 if __name__ == "__main__":
     # test case
-    API_KEY = '6585f7e0-7a6b-11eb-a075-4d53369a311a'  # put your api key
+    API_KEY = 'your api key'  # put your api key
     mgp = MugglepayClient(api_key=API_KEY)
     print('create order test')
     res = mgp.create_order(
@@ -160,9 +160,9 @@ if __name__ == "__main__":
         pay_currency='CNY',
         title='Monthly Program x 2',
         description='test python',
-        callback_url='https://{your_host}/mugglepay_callback_api', # replace with your own host where you deployed callback server
-        cancel_url='https://mugglepay?status=cancel',
-        success_url='https://mugglepay?status=success',
+        callback_url='https://{your_host}/mugglepay_callback_api', # replace {your_host} with your own host where you deployed callback server, example your_host：http://123.123.123.12:2340
+        cancel_url='https://{your_host}/mugglepay?status=cancel',
+        success_url='https://{your_host}/mugglepay?status=success',
         mobile=False,
         fast=False,
         token='test12345'
@@ -173,4 +173,4 @@ if __name__ == "__main__":
     print('get orders test')
     print(mgp.get_orders('NEW', 2, 0))
     print('checkout order test')
-    print(mgp.checkout_order(res['order']['order_id'], 'EOS'))
+    print(mgp.checkout_order(res['order']['order_id'], 'USD'))
